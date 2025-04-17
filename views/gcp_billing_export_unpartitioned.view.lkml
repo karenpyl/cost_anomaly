@@ -85,12 +85,14 @@ view: gcp_billing_export_unpartitioned {
     sql: ${TABLE}.usage_start_date ;;
   }
 
-  dimension: country {
-    type: string
-    sql: ${TABLE}.region ;;
-  }
   measure: count {
     type: count
     drill_fields: [project_name]
   }
+
+  measure: sum_net_cost {
+    type: sum
+    sql: ${total_net_cost} ;;
+  }
+
 }

@@ -14,11 +14,11 @@ datagroup: gcp_cost_anomaly_default_datagroup {
 
 persist_with: gcp_cost_anomaly_default_datagroup
 
-explore: gcp_billing_export_unpartitioned {
-  access_filter: {
-    field: country
-    user_attribute: country
+# explore: gcp_billing_export_unpartitioned {
+#   access_filter: {
+#     field: country
+#     user_attribute: country
 
-  }
+#   }
 
-}
+# }
