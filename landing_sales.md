@@ -36,7 +36,7 @@ Explore your data via interactive dashboards. Here you could perform data analys
         <td style="text-align: center;border:none;width: 20%;">
           <img src="https://cdn-icons-png.flaticon.com/128/3310/3310624.png" style="width: 75px;">
           <p>
-            <span style="font-size: 16px;"><a target="_blank" href="">Dashboard C</a></span><br>
+            <span style="font-size: 16px;"><a target="" href="/folders/5">Dashboard C</a></span><br>
           </p>
         </td>
        </tr>
