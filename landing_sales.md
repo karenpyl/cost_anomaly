@@ -24,7 +24,7 @@ Explore your data via interactive dashboards. Here you could perform data analys
         <td style="text-align: center;border:none;width: 20%;">
           <img src="https://cdn-icons-png.flaticon.com/128/8899/8899687.png" style="width: 75px;">
           <p>
-            <span style="font-size: 16px;"><a target="_blank" href="">Data Insights Dashboard</a></span><br>
+            <span style="font-size: 16px;"><a target="" href="/folders/lookml">Data Insights Dashboard</a></span><br>
           </p>
         </td>
         <td style="text-align: center;border:none;width: 20%;">
