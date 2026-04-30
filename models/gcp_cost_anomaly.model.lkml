@@ -15,3 +15,15 @@ datagroup: gcp_cost_anomaly_default_datagroup {
 persist_with: gcp_cost_anomaly_default_datagroup
 
 explore: gcp_billing_export_unpartitioned { }
+
+explore: user_order {
+
+  sql_always_where: ${user_id} = {{ _user_attributes['employee_id'] }} or ${manager_id} = {{ _user_attributes['employee_id']}} or ${director_id} = {{ _user_attributes['employee_id']}};;
+
+  # access_filter: {
+  #   field: user_order.country
+  #   user_attribute: country
+  # }
+  }
+
+# # or ${country} in ({{ _user_attributes['country'] }})
