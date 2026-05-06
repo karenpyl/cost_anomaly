@@ -48,6 +48,10 @@ view: user_order {
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
+    link: {
+      label: "Explore"
+      url: "https://b07c8727-7303-4dae-8908-f138a59b4f27.looker.app/explore/gcp_cost_anomaly/user_order?fields=user_order.first_name, user_order.last_name, user_order.count&f[user_order.last_name]={{value}}"
+    }
   }
   dimension: latitude {
     type: number
