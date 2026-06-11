@@ -70,6 +70,17 @@ view: gcp_billing_export_unpartitioned {
   dimension: sku_id {
     type: string
     sql: ${TABLE}.sku_id ;;
+    drill_fields: [sku_id,count, sum_net_cost]
+    link: {
+      label: "View Detail Table"
+      url: "
+      {% assign vis_config = '{
+      \"type\": \"table\",
+      \"show_cell_visualizations\": false
+      }' %}
+      {{ link }}&vis_config={{ vis_config | encode_uri }}&toggle=dat,pik,vis"
+    }
+
   }
 
   dimension: total_net_cost {
@@ -93,6 +104,7 @@ view: gcp_billing_export_unpartitioned {
   measure: sum_net_cost {
     type: sum
     sql: ${total_net_cost} ;;
-  }
+  drill_fields: [sku_id,service_id,total_net_cost]
 
+}
 }

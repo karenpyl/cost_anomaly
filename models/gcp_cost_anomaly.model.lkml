@@ -17,6 +17,7 @@ persist_with: gcp_cost_anomaly_default_datagroup
 explore: gcp_billing_export_unpartitioned { }
 
 explore: user_order {
+  description: "abc bac bac"
 
   sql_always_where: ${user_id} = {{ _user_attributes['employee_id'] }} or ${manager_id} = {{ _user_attributes['employee_id']}} or ${director_id} = {{ _user_attributes['employee_id']}};;
 
@@ -27,3 +28,8 @@ explore: user_order {
   }
 
 # # or ${country} in ({{ _user_attributes['country'] }})
+
+# access_grant: can_view_country_data {
+#   user_attribute: department
+#   allowed_values: [ "Finance", "Executive" ]
+# }

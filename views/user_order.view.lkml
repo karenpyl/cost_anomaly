@@ -1,12 +1,75 @@
 view: user_order {
   sql_table_name: `decoded-vision-448616-m1.gcp_cost_anomaly.user_order` ;;
 
-  dimension: order_id {
+
+###### Parameters #######
+  parameter: report_period_picker {
+    description: "Use with the dymamic period dimension"
+    type: unquoted
+    allowed_value: {
+      label: "Week"
+      value: "week"
+    }
+    allowed_value: {
+      label: "Quarter"
+      value: "quarter"
+    }
+    allowed_value: {
+      label: "Year"
+      value: "year"
+    }
+  }
+
+  parameter: measure_picker {
+    description: "Use with the dynamic measure"
+    type: unquoted
+    allowed_value: {
+      label: "Revenue"
+      value: "revenue"
+    }
+    allowed_value: {
+      label: "Num of Order"
+      value: "num_of_order"
+    }
+  }
+
+###############################################################
+
+  dimension: dynamic_period_select {
+    label_from_parameter: report_period_picker
+    type: string
+    sql:
+    {% if report_period_picker._parameter_value == 'week' %}
+      ${created_week}
+    {% elsif report_period_picker._parameter_value == 'quarter' %}
+      ${created_quarter}
+    {% elsif report_period_picker._parameter_value == 'year' %}
+      ${created_year}
+    {% else %}
+      NULL
+    {% endif %} ;;
+  }
+
+  measure: dynamic_measure {
+    label: "Dynamic Measure"
+    type: sum
+    sql:
+    {% if measure_picker._parameter_value == 'revenue' %}
+    ${sales}
+    {% elsif measure_picker._parameter_value == 'num_of_order' %}
+    ${num_of_item}
+    {% else %}
+    NULL
+    {% endif %} ;;
+  }
+
+
+###############################################################
+ dimension: order_id {
     primary_key: yes
     type: number
     sql: ${TABLE}.order_id ;;
   }
-
 
   dimension: age {
     type: number
@@ -20,6 +83,7 @@ view: user_order {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+    # required_access_grants: [can_view_country_data]
   }
   dimension_group: created {
     type: time
@@ -57,10 +121,24 @@ view: user_order {
     type: number
     sql: ${TABLE}.latitude ;;
   }
+
+  dimension: sales {
+    type: number
+    sql: ${TABLE}.latitude ;;
+  }
+
+
   dimension: longitude {
     type: number
     sql: ${TABLE}.longitude ;;
   }
+
+  dimension: location {
+    type: location
+    sql_latitude:${latitude} ;;
+    sql_longitude:${longitude} ;;
+  }
+
   dimension: manager_fullname {
     type: string
     sql: ${TABLE}.manager_fullname ;;
@@ -110,6 +188,10 @@ view: user_order {
   dimension: user_id {
     type: number
     sql: ${TABLE}.user_id ;;
+    link: {
+      label: "Full Detail"
+      url: "/dashboards/1Ysuu4K1bAdBbcpiTLH114?User+ID={{ value }}"
+    }
   }
 
   dimension: director_id {
@@ -119,13 +201,24 @@ view: user_order {
   measure: count {
     label: "Number of Orders"
     type: count
-    drill_fields: [order_id]
+    drill_fields: [user_details*]
+  }
+
+  measure: revenue {
+    label: "Total Revenue"
+    type: sum
+    sql: ${num_of_item} ;;
+    value_format_name: gbp_0
   }
 
   measure: count_distinct_user {
     label: "Number of users"
     type: count_distinct
     sql: ${user_id} ;;
-    drill_fields: [user_id, first_name, last_name, manager_id,manager_fullname,state]
+    drill_fields: [user_details*]
+  }
+
+  set: user_details {
+    fields: [user_id, first_name, last_name, manager_id,manager_fullname,state]
   }
 }
