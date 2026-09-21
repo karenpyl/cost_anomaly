@@ -83,7 +83,7 @@ view: user_order {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
-    # required_access_grants: [can_view_country_data]
+    required_access_grants: [can_view_country_data]
   }
   dimension_group: created {
     type: time

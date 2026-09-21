@@ -4,5 +4,8 @@ project_name: "cost_anomaly"
 # # on this instance with include: statements
 #
 # local_dependency: {
-#   project: "name_of_other_project"
+#   project: "dfx"
+#   override_constant: connection_name {
+#     value: "test"
+#   }
 # }

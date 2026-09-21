@@ -1,6 +1,8 @@
 # Define the database connection to be used for this model.
 connection: "cost_anomaly"
 
+# connection:"@{connection}"
+
 # include all the views
 include: "/views/**/*.view.lkml"
 
@@ -21,15 +23,15 @@ explore: user_order {
 
   sql_always_where: ${user_id} = {{ _user_attributes['employee_id'] }} or ${manager_id} = {{ _user_attributes['employee_id']}} or ${director_id} = {{ _user_attributes['employee_id']}};;
 
-  # access_filter: {
-  #   field: user_order.country
-  #   user_attribute: country
-  # }
+  access_filter: {
+    field: user_order.country
+    user_attribute: country
+  }
   }
 
 # # or ${country} in ({{ _user_attributes['country'] }})
 
-# access_grant: can_view_country_data {
-#   user_attribute: department
-#   allowed_values: [ "Finance", "Executive" ]
-# }
+access_grant: can_view_country_data {
+  user_attribute: department
+  allowed_values: [ "Finance", "Executive" ]
+}
